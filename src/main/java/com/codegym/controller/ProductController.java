@@ -1,5 +1,6 @@
 package com.codegym.controller;
 
+import com.codegym.model.Cart;
 import com.codegym.model.Product;
 import com.codegym.model.ProductForm;
 import com.codegym.service.IProductService;
@@ -7,10 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.FileCopyUtils;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -44,7 +42,7 @@ public class ProductController {
     @PostMapping("product")
     public ModelAndView saveFile(@ModelAttribute ProductForm productForm) throws Exception {
         ModelAndView modelAndView = new ModelAndView("product/index");
-        Product product = new Product(productForm.getProductName(),null, productForm.getPrice());
+        Product product = new Product(productForm.getProductName(), null, productForm.getPrice());
         MultipartFile multipartFile = productForm.getImage();
         String fileName = multipartFile.getOriginalFilename();
         String fileUpload = env.getProperty("file_upload").toString();
